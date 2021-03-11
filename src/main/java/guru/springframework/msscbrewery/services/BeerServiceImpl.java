@@ -12,6 +12,7 @@ public class BeerServiceImpl implements BeerService {
                 .id(UUID.randomUUID())
                 .beerStyle("Pale Ale")
                 .beerName("Galaxy Cat")
+                .upc(1234L)
                 .build();
     }
 }
