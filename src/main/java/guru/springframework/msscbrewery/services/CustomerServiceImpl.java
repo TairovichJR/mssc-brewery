@@ -20,7 +20,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDto saveNewBeer(CustomerDto customerDto) {
         log.debug("saved customer "  + customerDto);
-        return null;
+        return CustomerDto.builder()
+                .customerId(UUID.randomUUID()).name("John Thompson").build();
     }
 
     @Override

@@ -16,6 +16,8 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import java.util.UUID;
@@ -40,6 +42,7 @@ public class BeerControllerTest {
         validBeer = BeerDto.builder()
                 .id(UUID.randomUUID())
                 .beerName("Beer1")
+                .beerStyle("PALE_ALE")
                 .upc(122433535L)
                 .build();
     }
@@ -70,18 +73,18 @@ public class BeerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(beerDtoJson))
                 .andExpect(status().isCreated());
-
     }
 
     @Test
     public void handleUpdate() throws Exception {
         //given
         BeerDto beerDto = validBeer;
+        beerDto.setId(null);
         String beerDtoJson = objectMapper.writeValueAsString(beerDto);
         System.out.println(beerDtoJson);
 
         //when
-        mockMvc.perform(put("/api/v1/beer/" + validBeer.getId())
+        mockMvc.perform(put("/api/v1/beer/" + UUID.randomUUID())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(beerDtoJson))
                 .andExpect(status().isNoContent());
